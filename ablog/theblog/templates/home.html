@@ -6,6 +6,7 @@
 <ul>
     {% for post in object_list %}
     <li><a href="{% url 'article-detail' post.pk %}"> {{ post.title }} </a>
+        - {{ post.category }}
         - {{ post.author.first_name }}
         {{post.author.last_name}} -
         {{post.post_date}} -
@@ -16,7 +17,7 @@
             <a href="{% url 'delete_post' post.pk %}">(Delete) </a>
         {% endif %}
         </small> {{post.author.email}}<br/>
-        {{ post.body|slice:"200" }}...
+        {{ post.body|slice:"200" | safe}}...
     </li>
     {% endfor %}
 </ul>
