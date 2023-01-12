@@ -5,15 +5,19 @@
 
 {% if user.is_authenticated %}
 
-<h1>Add Post...</h1>
-<br/><br/>
-<div class="mb-3">
-    <form method= "POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-secondary">Post</button>
-</form>
-</div>
+    <h1>Add Post...</h1>
+    <br/><br/>
+    <div class="mb-3">
+        <form method= "POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-secondary">Post</button>
+    </form>
+    </div>
+    <script>
+      var name = "{{ user.id }}";
+      document.getElementById("elder").value = name;
+    </script>
 
 {% else %}
 
