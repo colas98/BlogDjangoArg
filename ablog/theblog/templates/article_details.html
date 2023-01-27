@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}{{post.title_tag}} {% endblock %}
 
 
@@ -43,7 +44,12 @@
 <div class="card mb-3">
   <div class="row no-gutters">
     <div class="col-md-2">
+{% if post.author.profile.profile_pic %}
       <img src="{{ post.author.profile.profile_pic.url }}" class="card-img rounded-circle">
+{% else %}
+      <img src="{% static 'theblog/images/profile_pic_default.jpg' %}" class="card-img rounded-circle">
+
+{% endif %}
     </div>
     <div class="col-md-10">
       <div class="card-body">
@@ -53,7 +59,7 @@
         </h5>
         <p class="card-text text-muted">
             {% if post.author.profile.website_url%}
-                <a href="{{ post.author.profile.website_url }}">Website</a> |   
+                <a href="{{ post.author.profile.website_url }}">Website</a> |
             {% endif %}
             {% if post.author.profile.instagram_url%}
                 <a href="{{ post.author.profile.instagram_url }}">Instagram</a>
