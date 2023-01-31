@@ -58,8 +58,10 @@
             {{post.author.last_name}}
         </h5>
         <p class="card-text text-muted">
+
+            <a href="{% url 'show_profile_page' post.author.profile.id %}">Profile Page</a>
             {% if post.author.profile.website_url%}
-                <a href="{{ post.author.profile.website_url }}">Website</a> |
+                | <a href="{{ post.author.profile.website_url }}">Website</a> |
             {% endif %}
             {% if post.author.profile.instagram_url%}
                 <a href="{{ post.author.profile.instagram_url }}">Instagram</a>
