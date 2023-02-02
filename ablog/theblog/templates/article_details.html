@@ -40,7 +40,24 @@
     </form>
 
 <br/><br/>
+<h2> Comments... </h2>
 
+{% if not post.comments.all %}
+    No Comments Yet... <a href="#">
+    Add One
+</a>
+{% else %}
+    {% for comment in post.comments.all %}
+        <strong>
+        {{ comment.name }} -
+        {{ comment.date_added }}
+        </strong>
+        <br/>
+        {{ comment.body }}
+        <br/><br/>
+    {% endfor %}
+{% endif %}
+ <hr>
 <div class="card mb-3">
   <div class="row no-gutters">
     <div class="col-md-2">
