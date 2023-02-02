@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Category
+from .models import Post, Category, Comment
 from datetime import date
 
 # choices =  [('coding', 'coding'), ('essais', 'essais'), ('contes', 'contes'),]
@@ -37,4 +37,13 @@ class EditForm(forms.ModelForm):
             'body': forms.Textarea(attrs={'class': 'form-control'}),
             'first_post_date': forms.DateInput(attrs={'class': 'form-control'}),
             'snippet': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name', 'body')
+        widgets = {
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+            'body': forms.Textarea(attrs={'class': 'form-control'}),
         }
