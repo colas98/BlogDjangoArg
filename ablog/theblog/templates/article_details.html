@@ -1,52 +1,26 @@
 {% extends 'base.html' %}
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  </head>
+
 {% load static %}
 {% block title %}{{post.title_tag}} {% endblock %}
-
-
-
-
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <small>By :
-        {{post.author.first_name}}
-        {{post.author.last_name}} -
-        {{post.first_post_date}}
-
-        {% if user.is_authenticated %}
-            {% if user.id == post.author.id or user.id == 1 %}
-            - <a href="{% url 'update_post' post.pk %}">(Edit) </a>
-            <a href="{% url 'delete_post' post.pk %}">(Delete) </a>
-            {% endif %}
-        {% endif %}
 
 
-    </small><br/>
-    <hr>
-    <br/>
-    {% if post.header_image %}
-        <img src="{{ post.header_image.url }}">
-    {% endif %}
-    {{ post.body | safe }}
-
-    <br/><br/>
-    <a href = "{% url 'home' %}" class = "btn btn-secondary"> Back</a>
-    <br/><br/>
-    <hr>
-    <br/>
-    <form action="{% url 'like_post' post.pk %}" method = "POST">
-        {% csrf_token %}
-        <button type="submit", name = "post_id", value = "{{ post.id }}", class="btn btn-primary btn-sm">Like</button>
-        - {{ total_likes }} Likes 
-    </form>
-
- <br/><br/>
+<div class="col-md-3 float-right">
 <div class="card mb-3">
   <div class="row no-gutters">
-    <div class="col-md-2">
+    <div class="col-md-center">
 {% if post.author.profile.profile_pic %}
-      <img src="{{ post.author.profile.profile_pic.url }}" class="card-img rounded-circle">
+      <img src="{{ post.author.profile.profile_pic.url }}" class="card-img rounded-circle" style="width:60%; margin:20px">
 {% else %}
-      <img src="{% static 'theblog/images/profile_pic_default.jpg' %}" class="card-img rounded-circle">
+      <img src="{% static 'theblog/images/profile_pic_default.jpg' %}" class="card-img rounded-circle" style="width: 60%; margin:20px"  >
 
 {% endif %}
     </div>
@@ -66,11 +40,51 @@
                 <a href="{{ post.author.profile.instagram_url }}">Instagram</a>
             {% endif %}
         </p>
-        <p class="card-text"> {{ post.author.profile.bio }} </p>
+        <p class="card-text"> {{ post.author.profile.bio|slice:":100" }}... </p>
       </div>
     </div>
   </div>
 </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 card mb-4  mt-3 top">
+    <h1>{{ post.title }}</h1>
+    <small>By :
+        {{post.author.first_name}}
+        {{post.author.last_name}} -
+        {{post.first_post_date}}
+
+        {% if user.is_authenticated %}
+            {% if user.id == post.author.id or user.id == 1 %}
+            - <a href="{% url 'update_post' post.pk %}">(Edit) </a>
+            <a href="{% url 'delete_post' post.pk %}">(Delete) </a>
+            {% endif %}
+        {% endif %}
+
+
+    </small><br/>
+
+    <hr>
+    <br/>
+    {% if post.header_image %}
+        <img src="{{ post.header_image.url }}">
+    {% endif %}
+    {{ post.body | safe }}
+
+    <br/><br/>
+    <a href = "{% url 'home' %}" class = "btn btn-secondary"> Back</a>
+    <br/><br/>
+    <hr>
+    <br/>
+    <form action="{% url 'like_post' post.pk %}" method = "POST">
+        {% csrf_token %}
+        <button type="submit", name = "post_id", value = "{{ post.id }}", class="btn btn-primary btn-sm">Like</button>
+        - {{ total_likes }} Likes
+    </form>
+
+ <br/><br/>
 
 <br/><br/>
 <h1> Comments... </h1>
@@ -99,6 +113,9 @@
 
 
  <br/><br/>
+</div>
+</div>
+</div>
+
 
 {% endblock %}
-
