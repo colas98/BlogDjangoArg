@@ -2,14 +2,12 @@
 {% block content %}
 {% load static %}
 
-{% block additional_styles %}
 <style>
    body {
     font-family: Times New Roman
    }
 
 </style>
-{% endblock %}
 
 <header class="masthead", style= "background-image:url(media/images/dibuix_lisa.jpeg);">
     <div class="overlay"></div>
@@ -24,19 +22,54 @@
     </div>
 </header>
 
+
 <div class="container">
+                <div class="col-md-3 float-right">
+                <div class="card mb-3">
+                  <div class="row no-gutters">
+                    <div class="col-md-center">
+                {% if user.profile.profile_pic %}
+                      <img src="{{ user.profile.profile_pic.url }}" class="card-img rounded-circle" style="width:60%; margin:20px">
+                {% else %}
+                      <img src="{% static 'theblog/images/profile_pic_default.jpg' %}" class="card-img rounded-circle" style="width: 60%; margin:20px"  >
+
+                {% endif %}
+                    </div>
+                    <div class="col-md-10">
+                      <div class="card-body">
+                        <h5 class="card-title">
+                            {{user.first_name}}
+                            {{user.last_name}}
+                        </h5>
+                        <p class="card-text text-muted">
+                            {% if user.profile.website_url%}
+                                | <a href="{{ user.profile.website_url }}">Website</a> |
+                            {% endif %}
+                            {% if user.profile.instagram_url%}
+                                <a href="{{ user.profile.instagram_url }}">Instagram</a>
+                            {% endif %}
+                            <p class="card-text"> {{ user.profile.bio|slice:":100" }}... </p>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
     <div class="row">
         <!-- Blog Entries Column -->
-        <div class="col-md-8 mt-3 left">
-            {% for post in object_list %}
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h2 class="card-title"> <a href="{% url 'article-detail' post.pk %}"> {{ post.title }} </a></h2>
-                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.category}} </p>
-                    <p class="card-text">{{post.body|slice:":200" }}</p>
-                    <a href="" class="btn btn-outline-danger">Segueix llegint... &rarr;</a>
+        <div class="col-md-12 mt-3 left">
 
-                </div>
+            {% for post in object_list %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title"> {{ post.title }} </h2>
+                        <p class="card-text text-muted h6">{{ post.author.first_name }} {{ post.author.last_name }} |
+                            <a href="{% url 'category' post.category|slugify%}">{{ post.category }}</a>
+                            | {{post.first_post_date}}</p>
+                        <p class="card-text">{{post.body|slice:":200"| safe }}...</p>
+                        <a href="{% url 'article-detail' post.pk %}" class="btn btn-outline"> Continua llegint... &rarr;</a>
+
+                    </div>
             </div>
             {% endfor %}
         </div>
