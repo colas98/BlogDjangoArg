@@ -5,9 +5,9 @@
 
 {% if user.is_authenticated %}
     {% if user.id == post.author.id or user.id == 1 %}
-
-        <h1>Update Post...</h1>
         <br/><br/>
+        <h1>Update Post...</h1>
+        <br/>
         <div class="mb-3">
             <form method= "POST">
                 {% csrf_token %}
