@@ -24,31 +24,24 @@
 
 
 <div class="container">
+                <br/>
                 <div class="col-md-3 float-right">
                 <div class="card mb-3">
                   <div class="row no-gutters">
                     <div class="col-md-center">
-                {% if user.profile.profile_pic %}
-                      <img src="{{ user.profile.profile_pic.url }}" class="card-img rounded-circle" style="width:60%; margin:20px">
-                {% else %}
-                      <img src="{% static 'theblog/images/profile_pic_default.jpg' %}" class="card-img rounded-circle" style="width: 60%; margin:20px"  >
-
-                {% endif %}
+                      <img src="{% static 'theblog/images/welcome_pic_adria_3.jpeg' %}" class="card-img">
                     </div>
                     <div class="col-md-10">
                       <div class="card-body">
                         <h5 class="card-title">
-                            {{user.first_name}}
-                            {{user.last_name}}
+                            Essais Argentina
                         </h5>
                         <p class="card-text text-muted">
-                            {% if user.profile.website_url%}
-                                | <a href="{{ user.profile.website_url }}">Website</a> |
-                            {% endif %}
-                            {% if user.profile.instagram_url%}
-                                <a href="{{ user.profile.instagram_url }}">Instagram</a>
-                            {% endif %}
-                            <p class="card-text"> {{ user.profile.bio|slice:":100" }}... </p>
+                            <p class="card-text"> Essais Argentina és un projecte que neix d'un somni juvenil de viatjar a la Patagonia
+                          que metamorfosa a una estança mitjana per terres portenyes. Desde la programació a l'escriptura
+                          m'ha permès la convergència de diversos dels meus mòns cercant el McGuffin de "Saber aprofitar
+                          el temps d'oci", espero que els meus amics i familiars se sentin benvinguts
+                      </p>
                         </p>
                       </div>
                     </div>
@@ -63,7 +56,7 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h2 class="card-title"> {{ post.title }} </h2>
-                        <p class="card-text text-muted h6">{{ post.author.first_name }} {{ post.author.last_name }} |
+                        <p class="card-text text-muted h6"> {{ post.author.first_name }} {{ post.author.last_name }} |
                             <a href="{% url 'category' post.category|slugify%}">{{ post.category }}</a>
                             | {{post.first_post_date}}</p>
                         <p class="card-text">{{post.body|slice:":200"| safe }}...</p>

@@ -16,9 +16,12 @@ class HomeView(ListView):
         context["cat_menu"] = cat_menu
         return context
 
+
 def CategoryView(request, cats):
-    category_posts = Post.objects.filter(category=cats.replace('-', ' '))
+    category_posts = Post.objects.filter(category=cats.replace('-', ' ')).order_by('-first_post_date')
     return render(request, 'categories.html', {'cats' : cats.title().replace('-', ' '), 'category_posts' : category_posts})
+
+
 
 def CategoryListView(request):
     cat_menu_list = Category.objects.all()
@@ -64,12 +67,14 @@ class AddCategoryView(CreateView):
     # form_class = PostForm
     template_name = 'add_category.html'
     fields = '__all__'
+
     # fields = ('title', 'body')
 
 class UpdatePostView(UpdateView):
     model = Post
     form_class = EditForm
     template_name = 'update_post.html'
+
     # fields = ['title', 'title_tag', 'body']
 
 class DeletePostView(DeleteView):
