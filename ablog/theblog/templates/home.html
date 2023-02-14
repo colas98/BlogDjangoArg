@@ -1,28 +1,72 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
+{% load static %}
 
-<h1>Post</h1>
+<style>
+   body {
+    font-family: Times New Roman
+   }
 
-<ul>
-    {% for post in object_list %}
-    <li><a href="{% url 'article-detail' post.pk %}"> {{ post.title }} </a>
-        - <a href="{% url 'category' post.category|slugify%}">{{ post.category }}</a>
-        - {{ post.author.first_name }}
-        {{post.author.last_name}} -
-        {{post.first_post_date}}
-        <small>
-        {% if user.is_authenticated %}
-            {% if user.id == post.author.id or user.id == 1 %}
-                -
-                <a href="{% url 'update_post' post.pk %}">(Edit) </a>
-                <a href="{% url 'delete_post' post.pk %}">(Delete) </a>
-            {% endif %}
-        {% endif %}
-        </small> <br/>
-        <!-- {{ post.snippet }} -->
-        {{ post.body|slice:"200"| safe}}...
-    </li>
-    {% endfor %}
-</ul>
+</style>
 
-{% endblock %}
+<header class="masthead", style= "background-image:url(media/images/dibuix_lisa.jpeg);">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h3 class=" site-heading my-4 mt-3 text-white"> Essais Argentina </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="container">
+                <br/>
+                <div class="col-md-3 float-right">
+                <div class="card mb-3">
+                  <div class="row no-gutters">
+                    <div class="col-md-center">
+                      <img src="{% static 'theblog/images/welcome_pic_adria_3.jpeg' %}" class="card-img">
+                    </div>
+                    <div class="col-md-10">
+                      <div class="card-body">
+                        <h5 class="card-title">
+                            Essais Argentina
+                        </h5>
+                        <p class="card-text text-muted">
+                            <p class="card-text"> Essais Argentina és un projecte que neix d'un somni juvenil de viatjar a la Patagonia
+                          que metamorfosa a una estança mitjana per terres portenyes. Desde la programació a l'escriptura
+                          m'ha permès la convergència de diversos dels meus mòns cercant el McGuffin de "Saber aprofitar
+                          el temps d'oci", espero que els meus amics i familiars se sentin benvinguts
+                      </p>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-12 mt-3 left">
+
+            {% for post in object_list %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title"> {{ post.title }} </h2>
+                        <p class="card-text text-muted h6"> {{ post.author.first_name }} {{ post.author.last_name }} |
+                            <a href="{% url 'category' post.category|slugify%}">{{ post.category }}</a>
+                            | {{post.first_post_date}}</p>
+                        <p class="card-text">{{post.body|slice:":200"| safe }}...</p>
+                        <a href="{% url 'article-detail' post.pk %}" class="btn btn-outline"> Continua llegint... &rarr;</a>
+
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{%endblock%}

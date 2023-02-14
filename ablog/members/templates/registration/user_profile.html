@@ -2,16 +2,18 @@
 {% load static %}
 {% block content %}
 
+<br/><br/>
 <h1>User Profile... </h1>
+<br/>
 
 <div class="card mb-3">
   <div class="row no-gutters">
     <div class="col-md-2">
 
 {% if page_user.profile_pic %}
-      <img src="{{ page_user.profile_pic.url }}" class="card-img rounded-circle">
+      <img src="{{ page_user.profile_pic.url }}" class="card-img rounded-circle" style="margin:10px">
 {% else %}
-      <img src="{% static 'theblog/images/profile_pic_default.jpg' %}" class="card-img rounded-circle">
+      <img src="{% static 'theblog/images/profile_pic_default.jpg' %}" class="card-img rounded-circle" style="margin:10px">
 
 {% endif %}
     </div>
